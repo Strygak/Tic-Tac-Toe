@@ -49,22 +49,22 @@ canvas.onclick = function(e) {
     draw(362, 30, 462, 130, 462, 30, 362, 130, 412, 80);
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX < 160) {
-    console.log("pressed 4");
+    console.log("clicked 4");
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 160 && e.offsetX < 330) {
-    console.log("pressed 5");
+    console.log("clicked 5");
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 330) {
-    console.log("pressed 6");
+    console.log("clicked 6");
   } 
   else if (e.offsetY > 330 && e.offsetX < 160) {
-    console.log("pressed 7");
+    console.log("clicked 7");
   } 
   else if (e.offsetY > 330 && e.offsetX > 160 && e.offsetX < 330) {
-    console.log("pressed 8");
+    console.log("clicked 8");
   } 
   else if (e.offsetY > 330 && e.offsetX > 330) {
-    console.log("pressed 9");
+    console.log("clicked 9");
   }
 }
 }())
