@@ -49,7 +49,7 @@ canvas.onclick = function(e) {
     draw(362, 30, 462, 130, 462, 30, 362, 130, 412, 80);
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX < 160) {
-    console.log("clicked 4");
+    draw(30, 196, 130, 296, 130, 196, 30, 296, 80, 246);
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 160 && e.offsetX < 330) {
     console.log("clicked 5");
