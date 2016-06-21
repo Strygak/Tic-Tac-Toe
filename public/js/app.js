@@ -1,6 +1,6 @@
 (function() {
 //var socket = io("http://localhost:3000/");
-var socket = io("https://blooming-lake-49901.herokuapp.com/"),
+//var socket = io("https://blooming-lake-49901.herokuapp.com/"),
     canvas = document.getElementById("myCanvas"),
     counter = 0;
 
@@ -55,16 +55,16 @@ canvas.onclick = function(e) {
     draw(196, 196, 296, 296, 296, 196, 196, 296, 246, 246);
   } 
   else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 330) {
-    console.log("clicked 6");
+    draw(362, 196, 462, 296, 462, 196, 362, 296, 412, 246);
   } 
   else if (e.offsetY > 330 && e.offsetX < 160) {
-    console.log("clicked 7");
+    draw(30, 362, 130, 462, 130, 362, 30, 462, 80, 412);
   } 
   else if (e.offsetY > 330 && e.offsetX > 160 && e.offsetX < 330) {
-    console.log("clicked 8");
+    draw(196, 362, 296, 462, 296, 362, 196, 462, 246, 412);
   } 
   else if (e.offsetY > 330 && e.offsetX > 330) {
-    console.log("clicked 9");
+    draw(362, 362, 462, 462, 462, 362, 362, 462, 412, 412);
   }
 }
 }())
