@@ -1,70 +1,67 @@
-(function() {
-//var socket = io("http://localhost:3000/");
-var socket = io("https://blooming-lake-49901.herokuapp.com/"),
-    canvas = document.getElementById("myCanvas"),
-    counter = 0;
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+//var io = require('socket.io')(app);
 
-ctx = canvas.getContext("2d");
-ctx.strokeStyle = "red";
-ctx.lineWidth = 10;
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
-function drawCross(x1, y1, x2, y2) {
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
-  ctx.stroke();
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join('../public/img/favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+app.use('/users', users);
+
+app.post('/endpoint', function (req, res, next) {
+    console.log(req.body);
+});
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
 }
 
-function draw(x1, y1, x2, y2, x3, y3, x4, y4, x, y) {
-  switch (counter % 2) {
-    case 0:
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
 
-      ctx.moveTo(x3, y3);
-      ctx.lineTo(x4, y4);
-      ctx.stroke();
-      break;
-    case 1: 
-      ctx.beginPath();
-      ctx.arc(x, y, 50, 0, 2 * Math.PI);
-      ctx.stroke();
-  }
-  counter++;
-}
-    
-drawCross(160, 0, 160, 500);
-drawCross(330, 0, 330, 500);
-drawCross(0, 160, 500, 160);
-drawCross(0, 330, 500, 330);
+module.exports = app;
+//app.listen(process.env.PORT || 3000, console.log("port 3000"));
 
-canvas.onclick = function(e) {
-  if (e.offsetY < 160 && e.offsetX < 160) {
-    draw(30, 30, 130, 130, 130, 30, 30, 130, 80, 80);
-  } 
-  else if (e.offsetY < 160 && e.offsetX > 160 && e.offsetX < 330) {
-    draw(196, 30, 296, 130, 296, 30, 196, 130, 246, 80);
-  } 
-  else if (e.offsetY < 160 && e.offsetX > 330) {
-    draw(362, 30, 462, 130, 462, 30, 362, 130, 412, 80);
-  } 
-  else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX < 160) {
-    draw(30, 196, 130, 296, 130, 196, 30, 296, 80, 246);
-  } 
-  else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 160 && e.offsetX < 330) {
-    draw(196, 196, 296, 296, 296, 196, 196, 296, 246, 246);
-  } 
-  else if (e.offsetY > 160 && e.offsetY < 330 && e.offsetX > 330) {
-    draw(362, 196, 462, 296, 462, 196, 362, 296, 412, 246);
-  } 
-  else if (e.offsetY > 330 && e.offsetX < 160) {
-    console.log("clicked 7");
-  } 
-  else if (e.offsetY > 330 && e.offsetX > 160 && e.offsetX < 330) {
-    console.log("clicked 8");
-  } 
-  else if (e.offsetY > 330 && e.offsetX > 330) {
-    console.log("clicked 9");
-  }
-}
-}())
+
