@@ -1,25 +1,23 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.set('port', port, console.log("port 3000"));
 
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +26,31 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+app.post('/', function (req, res, next) {
+    console.log(req.body);
+});
+
+
+io.on("connection", function(socket) {
+  socket.on("draw", function(data) {
+    console.log(data);
+    socket.broadcast.emit("goDraw", { 
+      s1: data.s1,
+      s2: data.s2,
+      s3: data.s3,
+      s4: data.s4,
+      s5: data.s5,
+      s6: data.s6,
+      s7: data.s7,
+      s8: data.s8,
+      s9: data.s9,
+      s10: data.s10,
+      s11: data.s11 
+    });
+  });
+});
 
 /**
  * Normalize a port into a number, string, or false.
