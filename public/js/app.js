@@ -47,7 +47,9 @@ var draw = {
       s10: y, 
       s11: pos 
     });
+    canvas.onclick = false;
   },
+
   drawSymbol2: function (x1, y1, x2, y2, x3, y3, x4, y4, x, y, pos) {
     switch (counter % 2) {
       case 0:
@@ -62,7 +64,7 @@ var draw = {
 draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);
 draw.drawX(0, 160, 500, 160, 0, 330, 500, 330);
 
-canvas.onclick = function(e) {
+function setSymbol(e){
   if (e.offsetY < 160 && e.offsetX < 160) {
     draw.drawSymbol(30, 30, 130, 130, 130, 30, 30, 130, 80, 80, 0);
   } 
@@ -91,16 +93,18 @@ canvas.onclick = function(e) {
     draw.drawSymbol(362, 362, 462, 462, 462, 362, 362, 462, 412, 412, 8);
   }
   counter++;
+
 }
 
+canvas.onclick = function(e) { setSymbol(e); }
+
 socket.on('goDraw', function(data) {
-    console.log(data);
-    
     draw.drawSymbol2(data.s1, data.s2, data.s3,
                     data.s4, data.s5, data.s6, 
                     data.s7, data.s8, data.s9,
                     data.s10, data.s11);
-    counter++;
+    counter++;    
+    canvas.onclick = function(e) { setSymbol(e); }
 });
 
 }())
