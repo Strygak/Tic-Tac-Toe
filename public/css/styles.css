@@ -18,11 +18,40 @@ canvas {
 div {
 	display: inline-block;
 	position: absolute;
-	top: 0px;
+	top: 160px;
 	left: 26%;
 	background-color: #0097a7;
 	width: 600px;
-	height: 300px;
+	height: 250px;
 	border-radius: 4px;
 	z-index: 1;
+	box-shadow: 0 5px 5px gray;
+}
+
+div input { 
+	margin: 17% 3% 10% 10%;
+	width: 35%;
+	height: 10%;
+	padding: 4px;
+	border: none; 
+	border-radius: 3px;
+	background-color: #ffebee;
+}
+
+div button {
+	width: 13%;
+	height: 13%;
+	border: none;
+	border-radius: 3px;
+	background-color: #e57373;
+}
+
+div button:hover {
+	cursor: pointer;
+	background-color: #ef9a9a;
+}
+
+div button:active {
+	width: 12%;
+	height: 12%;
 }
