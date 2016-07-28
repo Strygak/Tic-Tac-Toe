@@ -5,12 +5,19 @@ var socket = io("http://localhost:3000/");
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
 
+$("div").animate({
+  left: '26%'
+}, 900);
+
+
 
 $("div button").click(function() {
   $("div").animate({ 
     left: '1310px',
     display: 'none'
   }, 300);
+
+  $("#black").remove();
 
 });
 

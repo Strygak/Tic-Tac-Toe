@@ -19,13 +19,21 @@ div {
 	display: inline-block;
 	position: absolute;
 	top: 160px;
-	left: 26%;
+	left: -600px;
 	background-color: #0097a7;
 	width: 600px;
 	height: 250px;
 	border-radius: 4px;
-	z-index: 1;
-	box-shadow: 0 5px 5px gray;
+	z-index: 2;
+}
+
+#black { 
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.4;
+	z-index: 1; 
 }
 
 div input { 
@@ -35,7 +43,7 @@ div input {
 	padding: 4px;
 	border: none; 
 	border-radius: 3px;
-	background-color: #ffebee;
+	background-color: #fafafa;
 }
 
 div button {
