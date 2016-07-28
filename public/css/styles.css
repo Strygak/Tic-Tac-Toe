@@ -2,9 +2,27 @@
   margin: 0;
   padding: 0;
 }
+
+body { 
+	background-color: #b2edf2;
+	overflow-x: hidden; 
+}
+
 canvas {
-  display: block;
-  margin: auto;
-  margin-top: 4%;
-  background-color: lightblue;
+  display: inline-block;
+  position: absolute;
+  left: 30%;
+  top: 11%;
+}
+
+div {
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	left: 26%;
+	background-color: #0097a7;
+	width: 600px;
+	height: 300px;
+	border-radius: 4px;
+	z-index: 1;
 }
