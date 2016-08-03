@@ -5,7 +5,7 @@
 
 body { 
 	background-color: #b2edf2;
-	overflow-x: hidden; 
+	overflow-x: hidden;
 }
 
 canvas {
@@ -19,10 +19,10 @@ div {
 	display: inline-block;
 	position: absolute;
 	top: 160px;
-	left: -600px;
+	left: -750px;
 	background-color: #0097a7;
-	width: 600px;
-	height: 250px;
+	width: 56%;
+	height: 47%;
 	border-radius: 4px;
 	z-index: 2;
 }
@@ -32,7 +32,7 @@ div {
 	width: 100%;
 	height: 100%;
 	background-color: black;
-	opacity: 0.4;
+	opacity: 0.5;
 	z-index: 1; 
 }
 

@@ -1,26 +1,33 @@
-var socket = io("http://localhost:3000/");
-//var socket = io("https://blooming-lake-49901.herokuapp.com/"),
+//var socket = io("http://localhost:3000/");
+var socket = io("https://blooming-lake-49901.herokuapp.com/"),
     canvas = document.getElementById("myCanvas"),
     counter = 0,
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
 
-$("div").animate({
-  left: '26%'
-}, 900);
 
+if(!localStorage.userName) {
+    $("section").attr("id", "black");
+    $("div").animate({ left: "25%" },500);
 
+    $("div button").click(function() {
+        localStorage.userName = $("input[type='text']").val();  
 
-$("div button").click(function() {
-  $("div").animate({ 
-    left: '1310px',
-    display: 'none'
-  }, 300);
+    $("div").animate({
+        left: "95%"
+    }, 320);
+  
+    setTimeout(function(){
+        $("#black").remove();
+        $("div").toggle();
+        }, 400);
+    });
+}
+else {
+    alert(localStorage.userName);
+}
 
-  $("#black").remove();
-
-});
-
+  
 ctx = canvas.getContext("2d");
 ctx.strokeStyle = "#ff1744";
 ctx.lineWidth = 10;
