@@ -6,6 +6,7 @@
 body { 
 	background-color: #b2edf2;
 	overflow-x: hidden;
+	font-family: sans-serif;
 }
 
 canvas {
@@ -46,7 +47,7 @@ div input {
 	background-color: #fafafa;
 }
 
-div button {
+div .send, .congratulation button {
 	width: 13%;
 	height: 13%;
 	border: none;
@@ -54,12 +55,36 @@ div button {
 	background-color: #e57373;
 }
 
-div button:hover {
+div .send:hover {
 	cursor: pointer;
 	background-color: #ef9a9a;
 }
 
-div button:active {
+div .send:active {
 	width: 12%;
 	height: 12%;
+}
+
+.congratulation { 
+	left: 400px;
+	top: 150px;
+	height: 25%;
+	width: 25%;
+    background-color: #00e5ff; 
+    box-shadow: 0 6px 5px gray;
+}
+
+.congratulation button {
+	position: relative;
+	top: 270px;
+	left: 42%;
+	font-weight: bold;
+	background-color: #00e5ff;
+	cursor: pointer;
+}
+
+.congratulation h2 {
+	position: relative;
+	top: 10%;
+	left: 36%;
 }

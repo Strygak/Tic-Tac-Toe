@@ -1,11 +1,12 @@
-//var socket = io("http://localhost:3000/");
-var socket = io("https://blooming-lake-49901.herokuapp.com/"),
+var socket = io("http://localhost:3000/");
+//var socket = io("https://blooming-lake-49901.herokuapp.com/"),
     canvas = document.getElementById("myCanvas"),
     counter = 0,
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
-
-
+//
+//write username to localStorage
+//
 if(!localStorage.userName) {
     $("section").attr("id", "black");
     $("div").animate({ left: "25%" },500);
@@ -32,6 +33,9 @@ ctx = canvas.getContext("2d");
 ctx.strokeStyle = "#ff1744";
 ctx.lineWidth = 10;
 
+//***********************************
+//container object for draw functions
+//
 var draw = {
   drawX: function(x1, y1, x2, y2, x3, y3, x4, y4) {
     ctx.moveTo(x1, y1);
@@ -84,45 +88,105 @@ var draw = {
   },
 }
 
+//***************************************
+//handler for replay
+//
+function replayGame() {
+    var message = "<div class='congratulation'><h2>YOU ARE WINNER</h2>" +
+                         "<button>OK</button></div>";
+
+    $("body").append(message);
+    $(".congratulation").animate({ 
+        height: "80%", 
+        width: "85%",
+        top: "70px",
+        left: "100px" 
+    }, 3000);
+
+    $(".congratulation").animate({
+        height: "55%",
+        width: "56%",
+        top: "100px",
+        left: "22%"
+    }, 300);
+
+    $(".congratulation button").on("click", function() {
+        $(".congratulation").remove();
+        $("canvas").remove();
+        counter = 0;
+        sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
+    
+        $("body").append("<canvas id='myCanvas' width='500'" +
+                         "height='500'></canvas>");
+
+        var canvas = document.getElementById("myCanvas");
+        canvas.onclick = function(e) { setSymbol(e); }
+
+        ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#ff1744";
+        ctx.lineWidth = 10;
+
+        draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);
+        draw.drawX(0, 160, 500, 160, 0, 330, 500, 330);
+    }); 
+}
+
+//******************************************************
+//handler function for check if draw three equal symbols and send its to server
+//
 function checkSquares() {
+    var winnerName = localStorage.userName;
+
     if (sq0 && sq1 && sq2) { 
         draw.drawX(15, 80, 475, 80);
-        socket.emit("line", { x1: 15, y1: 80, x2: 475, y2: 80 }); 
+        socket.emit("line", { x1: 15, y1: 80, x2: 475, y2: 80, name: winnerName });
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq3 && sq4 && sq5) { 
         draw.drawX(15, 245, 475, 245);
         socket.emit("line", { x1: 15, y1: 245, x2: 475, y2: 245 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq6 && sq7 && sq8) { 
         draw.drawX(15, 410, 475, 410);
         socket.emit("line", { x1: 15, y1: 410, x2: 475, y2: 410 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq0 && sq3 && sq6) { 
         draw.drawX(80, 15, 80, 475);
-        socket.emit("line", { x1: 80, y1: 15, x2: 80, y2: 475}); 
+        socket.emit("line", { x1: 80, y1: 15, x2: 80, y2: 475});
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq1 && sq4 && sq7) { 
         draw.drawX(245, 15, 245, 475);
         socket.emit("line", { x1: 245, y1: 15, x2: 245, y2: 475 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq2 && sq5 && sq8) { 
         draw.drawX(412, 15, 412, 475);
         socket.emit("line", { x1: 412, y1: 15, x2: 412, y2: 475 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq0 && sq4 && sq8) { 
         draw.drawX(20, 20, 470, 470);
         socket.emit("line", { x1: 20, y1: 20, x2: 470, y2: 470 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     else if (sq2 && sq4 && sq6) { 
         draw.drawX(470, 22, 20, 472);
         socket.emit("line", { x1: 470, y1: 22, x2: 20, y2: 472 }); 
+        setTimeout(function() { replayGame(); }, 500);
     }
     canvas.onclick = false;
 }
-  
+//*****************
+//draw net for play
 draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);
 draw.drawX(0, 160, 500, 160, 0, 330, 500, 330);
 
+//**************************************************
+//handler function for click on canvas to set symbol
+//*
 function setSymbol(e){
   if (e.offsetY < 160 && e.offsetX < 160) {
     draw.drawSymbol(30, 30, 130, 130, 130, 30, 30, 130, 80, 80, 0);
@@ -164,6 +228,9 @@ function setSymbol(e){
   checkSquares();
 }
 
+//*******************************     
+//set handler for click on canvas
+//
 canvas.onclick = function(e) { setSymbol(e); }
 
 socket.on('goDraw', function(data) {
@@ -176,6 +243,10 @@ socket.on('goDraw', function(data) {
 });
 
 socket.on("sendLine", function(data) { 
+    var name = data.winName;
     draw.drawX(data.x1, data.y1, data.x2, data.y2); 
     canvas.onclick = false;
+    var name = localStorage.userName;
+    
+    setTimeout(function() { replayGame(); }, 500);
 });
