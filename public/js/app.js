@@ -4,34 +4,36 @@ var socket = io("http://localhost:3000/");
     counter = 0,
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
-//
-//write username to localStorage
-//
-if(!localStorage.userName) {
-    $("section").attr("id", "black");
-    $("div").animate({ left: "25%" },500);
 
-    $("div button").click(function() {
-        localStorage.userName = $("input[type='text']").val();  
+ctx = canvas.getContext("2d");
+ctx.strokeStyle = "#ff5252";
+ctx.lineWidth = 10;
 
-    $("div").animate({
-        left: "95%"
-    }, 320);
-  
-    setTimeout(function(){
-        $("#black").remove();
-        $("div").toggle();
-        }, 400);
+//***************************************
+//put form for register on center of page
+function setForm() {
+    $("#register").animate({ left: "22%" }, 500);
+
+    //handle click and go to  the login form
+    $("#login").on("click", function() {
+
+        $("#register").animate({ left: "-60%" }, 500);
+        $("#loginForm").animate({ left: "22%" }, 500);
+
+        $("#loginButton1").on("click", function() {
+          $("#loginForm").animate({ left: "100%" }, 500);
+        });
+
+        $("#back").on("click", function() {
+          $("#loginForm").animate({ left: "-60%" }, 500);
+          $("#register").animate({ left: "22%" }, 500);
+        });
+    });
+
+    $("#registerButton").on("click", function() {
+      $("#register").animate({ left: "100%" }, 500);
     });
 }
-else {
-    alert(localStorage.userName);
-}
-
-  
-ctx = canvas.getContext("2d");
-ctx.strokeStyle = "#ff1744";
-ctx.lineWidth = 10;
 
 //***********************************
 //container object for draw functions
@@ -91,17 +93,14 @@ var draw = {
 //***************************************
 //handler for replay
 //
-function replayGame() {
-    var message = "<div class='congratulation'><h2>YOU ARE WINNER</h2>" +
-                         "<button>OK</button></div>";
-
+function replayGame(message) {
     $("body").append(message);
     $(".congratulation").animate({ 
         height: "80%", 
         width: "85%",
         top: "70px",
         left: "100px" 
-    }, 3000);
+    }, 300);
 
     $(".congratulation").animate({
         height: "55%",
@@ -111,8 +110,12 @@ function replayGame() {
     }, 300);
 
     $(".congratulation button").on("click", function() {
-        $(".congratulation").remove();
+         
+        $(".congratulation").animate({ left: "100%" }, 400);
+        setTimeout(function(){ $(".congratulation").remove(); }, 650);
+      
         $("canvas").remove();
+
         counter = 0;
         sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
     
@@ -136,46 +139,48 @@ function replayGame() {
 //
 function checkSquares() {
     var winnerName = localStorage.userName;
+    var message = "<div class='congratulation'><h2>YOU ARE WINNER</h2>" +
+                         "<button>OK</button></div>";
 
     if (sq0 && sq1 && sq2) { 
         draw.drawX(15, 80, 475, 80);
         socket.emit("line", { x1: 15, y1: 80, x2: 475, y2: 80, name: winnerName });
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq3 && sq4 && sq5) { 
         draw.drawX(15, 245, 475, 245);
         socket.emit("line", { x1: 15, y1: 245, x2: 475, y2: 245 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq6 && sq7 && sq8) { 
         draw.drawX(15, 410, 475, 410);
         socket.emit("line", { x1: 15, y1: 410, x2: 475, y2: 410 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq0 && sq3 && sq6) { 
         draw.drawX(80, 15, 80, 475);
         socket.emit("line", { x1: 80, y1: 15, x2: 80, y2: 475});
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq1 && sq4 && sq7) { 
         draw.drawX(245, 15, 245, 475);
         socket.emit("line", { x1: 245, y1: 15, x2: 245, y2: 475 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq2 && sq5 && sq8) { 
         draw.drawX(412, 15, 412, 475);
         socket.emit("line", { x1: 412, y1: 15, x2: 412, y2: 475 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq0 && sq4 && sq8) { 
         draw.drawX(20, 20, 470, 470);
         socket.emit("line", { x1: 20, y1: 20, x2: 470, y2: 470 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq2 && sq4 && sq6) { 
         draw.drawX(470, 22, 20, 472);
         socket.emit("line", { x1: 470, y1: 22, x2: 20, y2: 472 }); 
-        setTimeout(function() { replayGame(); }, 500);
+        setTimeout(function() { replayGame(message); }, 400);
     }
     canvas.onclick = false;
 }
@@ -234,6 +239,7 @@ function setSymbol(e){
 canvas.onclick = function(e) { setSymbol(e); }
 
 socket.on('goDraw', function(data) {
+  
     draw.drawSymbol2(data.s1, data.s2, data.s3,
                     data.s4, data.s5, data.s6, 
                     data.s7, data.s8, data.s9,
@@ -244,9 +250,12 @@ socket.on('goDraw', function(data) {
 
 socket.on("sendLine", function(data) { 
     var name = data.winName;
+    var message = "<div class='congratulation'><h2>" + name + " IS WINNER</h2>" +
+                  "<button>OK</button></div>";
     draw.drawX(data.x1, data.y1, data.x2, data.y2); 
     canvas.onclick = false;
-    var name = localStorage.userName;
     
-    setTimeout(function() { replayGame(); }, 500);
+    setTimeout(function() { replayGame(message); }, 400);
 });
+
+setForm();

@@ -4,7 +4,7 @@
 }
 
 body { 
-	background-color: #b2edf2;
+	background-color: #b3e5fc;
 	overflow-x: hidden;
 	font-family: sans-serif;
 }
@@ -16,53 +16,64 @@ canvas {
   top: 11%;
 }
 
-div {
+form {
 	display: inline-block;
 	position: absolute;
 	top: 160px;
 	left: -750px;
-	background-color: #0097a7;
+	background-color: #ffffff;
 	width: 56%;
 	height: 47%;
 	border-radius: 4px;
 	z-index: 2;
+	box-shadow: 0 6px 6px gray;
 }
 
-#black { 
-	position: absolute;
+.top {
 	width: 100%;
-	height: 100%;
-	background-color: black;
-	opacity: 0.5;
-	z-index: 1; 
+	height: 25px;
+	background-color: #0288d1;
+	border-radius: 4px 4px 0 0;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 25px;
+	text-align: right;
 }
 
-div input { 
-	margin: 17% 3% 10% 10%;
+form input { 
+	margin: 5% 3% 1% 10%;
 	width: 35%;
 	height: 10%;
 	padding: 4px;
 	border: none; 
 	border-radius: 3px;
-	background-color: #fafafa;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: #ffffff;
 }
 
-div .send, .congratulation button {
+::-webkit-input-placeholder {
+    color: #ffffff;
+}
+
+.or { 
+	color: #212121;
+	margin: 0 20px 0 20px;
+	font-weight: bold; 
+}
+
+#loginForm { left: -60%; }
+
+.send, .congratulation button {
+	margin: 0;
 	width: 13%;
 	height: 13%;
 	border: none;
 	border-radius: 3px;
-	background-color: #e57373;
-}
-
-div .send:hover {
+	background-color: #ff5252;
+	font-weight: bold;
+	color: #ffffff;
 	cursor: pointer;
-	background-color: #ef9a9a;
-}
-
-div .send:active {
-	width: 12%;
-	height: 12%;
 }
 
 .congratulation { 

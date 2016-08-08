@@ -8,10 +8,24 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
-  <div>
-    <input type="text" name="" placeholder="enter Your name">
-    <button class="send">SEND</button>
-  </div>
+  
+  <form id="loginForm">
+    <div class="top"></div>
+    <input type="text" placeholder="enter Your email" ><br>
+    <input type="password" placeholder="enter Your password">
+    <input type="button" class="send" id="loginButton1" value="LOGIN">
+    <span class="or">or</span>
+    <input type="button" name="" class="send" id="back" value="BACK">
+  </form>
+  <form id="register">
+    <div class="top"></div>
+    <input type="text" placeholder="enter Your name"><br>
+    <input type="text" placeholder="enter Your email" ><br>
+    <input type="password" placeholder="enter Your password">
+    <input type="button" class="send" id="registerButton" value="REGISTER">
+    <span class="or">or</span>
+    <input type="button" class="send" id="login" value="LOGIN">
+  </form>
   <canvas id="myCanvas" width="500" height="500"></canvas>
 </body>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
