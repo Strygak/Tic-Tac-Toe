@@ -9,11 +9,11 @@
 </head>
 <body>
   
-  <form id="loginForm">
+  <form id="loginForm" method="POST" action="/login">
     <div class="top"></div>
-    <input type="text" placeholder="enter Your email" ><br>
-    <input type="password" placeholder="enter Your password">
-    <input type="button" class="send" id="loginButton1" value="LOGIN">
+    <input type="text" placeholder="enter Your email" name="email" ><br>
+    <input type="password" placeholder="enter Your password" name="password">
+    <input type="submit" class="send" id="loginButton1" value="LOGIN">
     <span class="or">or</span>
     <input type="button" name="" class="send" id="back" value="BACK">
   </form>

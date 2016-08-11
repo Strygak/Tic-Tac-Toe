@@ -1,0 +1,19 @@
+body {
+	margin: 0;
+	background-color: #c5cae9;
+}
+
+.room {
+	width: 250px;
+	height: 200px;
+	background-color: #ff5222;
+	margin: 40px 55px;
+	margin-left: 110px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px 5px gray;
+	display: inline-block;
+}
+
+.room:hover {
+	background-color: #ff7043;
+}

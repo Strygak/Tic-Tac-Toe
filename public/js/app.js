@@ -1,5 +1,6 @@
-var socket = io("http://localhost:3000/");
-//var socket = io("https://blooming-lake-49901.herokuapp.com/"),
+
+  //var socket = io("http://localhost:3000/");
+var socket = io("https://blooming-lake-49901.herokuapp.com/"),
     canvas = document.getElementById("myCanvas"),
     counter = 0,
     squares = [],
@@ -10,34 +11,51 @@ ctx.strokeStyle = "#ff5252";
 ctx.lineWidth = 10;
 
 //***************************************
-//put form for register on center of page
+//put form for register in center of page
 function setForm() {
-    $("#register").animate({ left: "22%" }, 500);
+    //$("#register").animate({ left: "22%" }, 500);
+    //$("#loginForm").animate({ left: "22%" }, 500);
 
     //handle click and go to  the login form
-    $("#login").on("click", function() {
+    //$("#login").on("click", function() {
 
-        $("#register").animate({ left: "-60%" }, 500);
-        $("#loginForm").animate({ left: "22%" }, 500);
+    //    $("#register").animate({ left: "-60%" }, 500);
+    //    $("#loginForm").animate({ left: "22%" }, 500);
 
-        $("#loginButton1").on("click", function() {
-          $("#loginForm").animate({ left: "100%" }, 500);
-        });
+        //$("#loginButton1").on("click", function() {
+          //$("#loginForm").animate({ left: "100%" }, 500);
+        //});
 
-        $("#back").on("click", function() {
-          $("#loginForm").animate({ left: "-60%" }, 500);
-          $("#register").animate({ left: "22%" }, 500);
-        });
-    });
+    //    $("#back").on("click", function() {
+    //      $("#loginForm").animate({ left: "-60%" }, 500);
+    //      $("#register").animate({ left: "22%" }, 500);
+    //    });
+    //});
 
-    $("#registerButton").on("click", function() {
-      $("#register").animate({ left: "100%" }, 500);
-    });
+    //$("#registerButton").on("click", function() {
+    //  $("#register").animate({ left: "100%" }, 500);
+    //});
 }
 
 //***********************************
 //container object for draw functions
 //
+
+$("#loginForm").animate({ left: "23%" });
+
+$("#loginForm").on("submit", function() {
+
+    $.ajax({
+        type: "POST",
+        url: form.attr("action"),
+        data: form.serialize(),
+        succes: function (data) { console.log(data); },
+        failure: function (data) { console.log(data); } 
+    });
+    
+});
+
+
 var draw = {
   drawX: function(x1, y1, x2, y2, x3, y3, x4, y4) {
     ctx.moveTo(x1, y1);
@@ -258,4 +276,9 @@ socket.on("sendLine", function(data) {
     setTimeout(function() { replayGame(message); }, 400);
 });
 
+//*******************************
+//execute register/login function
 setForm();
+
+
+

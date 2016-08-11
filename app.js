@@ -4,12 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var io = require('socket.io')(app);
+var io = require('socket.io')(app);
+var mongoose = require('mongoose');
+var db = require('./db');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+mongoose.connect(db.url, console.log('mongodb connected'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,10 +27,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/rooms', routes);
 app.use('/users', users);
 
 app.post('/endpoint', function (req, res, next) {
+    console.log(req.body);
+});
+
+//handle login form
+app.post('/login', function(req, res) {
+    console.log(req.body);
+    if (req.body.email === 'roman.pawliw') {
+        res.redirect('/rooms');
+    } 
+    else {
+        res.redirect('/');
+    }
+});
+
+//handle register form
+app.post('/register', function(req, res) {
     console.log(req.body);
 });
 
@@ -62,6 +82,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-//app.listen(process.env.PORT || 3000, console.log("port 3000"));
-
-
