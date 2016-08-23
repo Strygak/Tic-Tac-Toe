@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var db = require('./db');
 var setUpPassport = require('./setuppassport');
 
-var router = require('./router');
+var router = require('../routes/router');
 
 var app = express();
 
