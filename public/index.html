@@ -11,24 +11,24 @@
   
   <form id="loginForm" method="POST" action="/login">
     <div class="top"></div>
-    <input type="text" placeholder="enter Your email" name="email" ><br>
+    <input type="text" placeholder="enter Your name" name="username" ><br>
     <input type="password" placeholder="enter Your password" name="password">
     <input type="submit" class="send" id="loginButton1" value="LOGIN">
     <span class="or">or</span>
-    <input type="button" name="" class="send" id="back" value="BACK">
+    <input type="button" name="" class="send" id="back" value="REGISTER">
   </form>
-  <form id="register">
+  
+  <form id="registerForm" method="POST" action="/register">
     <div class="top"></div>
-    <input type="text" placeholder="enter Your name"><br>
-    <input type="text" placeholder="enter Your email" ><br>
-    <input type="password" placeholder="enter Your password">
-    <input type="button" class="send" id="registerButton" value="REGISTER">
+    <input type="text" placeholder="enter Your name" name="username"><br>
+    <input type="text" placeholder="enter Your email" name="email"><br>
+    <input type="password" placeholder="enter Your password" name="password">
+    <input type="submit" class="send" id="registerButton" value="REGISTER">
     <span class="or">or</span>
     <input type="button" class="send" id="login" value="LOGIN">
   </form>
-  <canvas id="myCanvas" width="500" height="500"></canvas>
+
 </body>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </html>
