@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var db = require('./db');
 var setUpPassport = require('./setuppassport');
 
-var router = require('../routes/router');
+var router = require('./app_server/routes/router');
 
 var app = express();
 
@@ -18,7 +18,7 @@ mongoose.connect(db.url, console.log('mongodb connected'));
 setUpPassport();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
