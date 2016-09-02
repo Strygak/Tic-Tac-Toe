@@ -89,6 +89,13 @@ function replayGame(message) {
     }, 300);
 
     $(".congratulation button").on("click", function() {
+
+      function createColor() {
+        var r = Math.floor(Math.random() * 257);
+        var g = Math.floor(Math.random() * 257);
+        var b = Math.floor(Math.random() * 257);
+        return "rgb" + "(" + ( r + "," + g + "," + b + ")" );
+      }
          
         $(".congratulation").animate({ left: "100%" }, 400);
         setTimeout(function(){ $(".congratulation").remove(); }, 650);
@@ -98,14 +105,14 @@ function replayGame(message) {
         counter = 0;
         sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
     
-        $("body").append("<canvas id='myCanvas' width='500'" +
+        $("body").append("<canvas id='myCanvas1' width='500'" +
                          "height='500'></canvas>");
 
-        var canvas = document.getElementById("myCanvas");
+        var canvas = document.getElementById("myCanvas1");
         canvas.onclick = function(e) { setSymbol(e); }
 
         ctx = canvas.getContext("2d");
-        ctx.strokeStyle = "#ff1744";
+        ctx.strokeStyle = createColor();
         ctx.lineWidth = 10;
 
         draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);
@@ -128,37 +135,37 @@ function checkSquares() {
     }
     else if (sq3 && sq4 && sq5) { 
         draw.drawX(15, 245, 475, 245);
-        socket.emit("lineRoom1", { x1: 15, y1: 245, x2: 475, y2: 245 }); 
+        socket.emit("lineRoom1", { x1: 15, y1: 245, x2: 475, y2: 245, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq6 && sq7 && sq8) { 
         draw.drawX(15, 410, 475, 410);
-        socket.emit("lineRoom1", { x1: 15, y1: 410, x2: 475, y2: 410 }); 
+        socket.emit("lineRoom1", { x1: 15, y1: 410, x2: 475, y2: 410, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq0 && sq3 && sq6) { 
         draw.drawX(80, 15, 80, 475);
-        socket.emit("lineRoom1", { x1: 80, y1: 15, x2: 80, y2: 475});
+        socket.emit("lineRoom1", { x1: 80, y1: 15, x2: 80, y2: 475, name: winnerName });
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq1 && sq4 && sq7) { 
         draw.drawX(245, 15, 245, 475);
-        socket.emit("lineRoom1", { x1: 245, y1: 15, x2: 245, y2: 475 }); 
+        socket.emit("lineRoom1", { x1: 245, y1: 15, x2: 245, y2: 475, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq2 && sq5 && sq8) { 
         draw.drawX(412, 15, 412, 475);
-        socket.emit("lineRoom1", { x1: 412, y1: 15, x2: 412, y2: 475 }); 
+        socket.emit("lineRoom1", { x1: 412, y1: 15, x2: 412, y2: 475, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq0 && sq4 && sq8) { 
         draw.drawX(20, 20, 470, 470);
-        socket.emit("lineRoom1", { x1: 20, y1: 20, x2: 470, y2: 470 }); 
+        socket.emit("lineRoom1", { x1: 20, y1: 20, x2: 470, y2: 470, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     else if (sq2 && sq4 && sq6) { 
         draw.drawX(470, 22, 20, 472);
-        socket.emit("lineRoom1", { x1: 470, y1: 22, x2: 20, y2: 472 }); 
+        socket.emit("lineRoom1", { x1: 470, y1: 22, x2: 20, y2: 472, name: winnerName }); 
         setTimeout(function() { replayGame(message); }, 400);
     }
     canvas.onclick = false;
