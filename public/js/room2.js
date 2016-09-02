@@ -1,5 +1,5 @@
 var socket = io("http://localhost:4000") || ("https://blooming-lake-49901.herokuapp.com/"),
-    canvas = document.getElementById("myCanvas1"),
+    canvas = document.getElementById("myCanvas"),
     counter = 0,
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
@@ -89,6 +89,13 @@ function replayGame(message) {
     }, 300);
 
     $(".congratulation button").on("click", function() {
+
+        function createColor() {
+          var r = Math.floor(Math.random() * 257);
+          var g = Math.floor(Math.random() * 257);
+          var b = Math.floor(Math.random() * 257);
+          return "rgb" + "(" + ( r + "," + g + "," + b + ")" );
+        }
          
         $(".congratulation").animate({ left: "100%" }, 400);
         setTimeout(function(){ $(".congratulation").remove(); }, 650);
@@ -105,7 +112,7 @@ function replayGame(message) {
         canvas.onclick = function(e) { setSymbol(e); }
 
         ctx = canvas.getContext("2d");
-        ctx.strokeStyle = "#ff1744";
+        ctx.strokeStyle = createColor();
         ctx.lineWidth = 10;
 
         draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);

@@ -1,5 +1,5 @@
 var socket = io("http://localhost:4000") || ("https://blooming-lake-49901.herokuapp.com/"),
-    canvas = document.getElementById("myCanvas1"),
+    canvas = document.getElementById("myCanvas"),
     counter = 0,
     squares = [],
     sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
@@ -105,10 +105,10 @@ function replayGame(message) {
         counter = 0;
         sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
     
-        $("body").append("<canvas id='myCanvas1' width='500'" +
+        $("body").append("<canvas id='myCanvas' width='500'" +
                          "height='500'></canvas>");
 
-        var canvas = document.getElementById("myCanvas1");
+        var canvas = document.getElementById("myCanvas");
         canvas.onclick = function(e) { setSymbol(e); }
 
         ctx = canvas.getContext("2d");
