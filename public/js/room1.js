@@ -89,6 +89,13 @@ function replayGame(message) {
     }, 300);
 
     $(".congratulation button").on("click", function() {
+
+      function createColor() {
+        var r = Math.floor(Math.random() * 257);
+        var g = Math.floor(Math.random() * 257);
+        var b = Math.floor(Math.random() * 257);
+        return "rgb" + "(" + ( r + "," + g + "," + b + ")" );
+      }
          
         $(".congratulation").animate({ left: "100%" }, 400);
         setTimeout(function(){ $(".congratulation").remove(); }, 650);
@@ -98,14 +105,14 @@ function replayGame(message) {
         counter = 0;
         sq0 = sq1 = sq2 = sq3 = sq4 = sq5 = sq6 = sq7 = sq8 = false;
     
-        $("body").append("<canvas id='myCanvas' width='500'" +
+        $("body").append("<canvas id='myCanvas1' width='500'" +
                          "height='500'></canvas>");
 
-        var canvas = document.getElementById("myCanvas");
+        var canvas = document.getElementById("myCanvas1");
         canvas.onclick = function(e) { setSymbol(e); }
 
         ctx = canvas.getContext("2d");
-        ctx.strokeStyle = "#ff1744";
+        ctx.strokeStyle = createColor();
         ctx.lineWidth = 10;
 
         draw.drawX(160, 0, 160, 500, 330, 0, 330, 500);
