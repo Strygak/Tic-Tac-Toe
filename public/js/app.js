@@ -16,7 +16,7 @@ function setForm() {
     });
 
     $("#loginForm").on("submit", function() {
-
+      localStorage.userName = $("input:username").val();
       $.ajax({
           type: "POST",
           url: "/login",
@@ -30,7 +30,7 @@ function setForm() {
     });
 
     $("#registerForm").submit(function(event) {
-
+        localStorage.userName = $("input:username").val();
         $.ajax({
           type: "POST",
           url: "/register",
